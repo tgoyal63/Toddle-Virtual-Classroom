@@ -31,6 +31,9 @@ module.exports = {
       const submissionData = {
         studentId,
         assignmentId: data._id,
+        submissionData: null,
+        submissionTime: null,
+        remarks: null,
       };
       await submissionService.create(submissionData);
     }));
@@ -69,8 +72,9 @@ module.exports = {
 
     // Checking if unwanted fields are provided in the body
     const keys = Object.keys(req.body);
-    if (req.body.hasProperty('_id', 'submissionData', 'submissionTime', 'createdAt', 'updatedAt') || keys.length > 2) throw new ControllerError(403, 'Only studentId and remarks are allowed.');
+    if (Object.hasOwnProperty.call(req.body, '_id', 'submissionData', 'submissionTime', 'createdAt', 'updatedAt') || keys.length > 2) throw new ControllerError(403, 'Only studentId and remarks are allowed.');
 
+    if (!req.body.studentId || !req.body.remarks) throw new ControllerError(400, 'studentId and remarks are required.');
     const { studentId, remarks } = req.body;
     const { assignmentId } = req.params;
 
