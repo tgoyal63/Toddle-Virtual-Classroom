@@ -5,5 +5,7 @@
 
 ## To run
 
-- npm i
-- npm start
+- Make a .env file and copy the contents of demo.env into it.
+- After then, run the following commands in the terminal:
+  - npm i
+  - npm start
