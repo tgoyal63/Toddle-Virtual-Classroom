@@ -46,6 +46,7 @@ module.exports = {
 
   // Delete an assignment by its id from database
   deleteById: serviceBoilerPlate(async (_id) => {
-    await assignment.findOneAndDelete({ _id }).exec();
+    const data = await assignment.findOneAndDelete({ _id }).exec();
+    return data;
   }),
 };
