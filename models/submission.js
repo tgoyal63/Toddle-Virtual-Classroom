@@ -1,7 +1,9 @@
+// Importing Node Modules
 const { model } = require('mongoose');
 const { Schema } = require('mongoose');
 const { Joi } = require('express-validation');
 
+// Submission Schema
 const submissionSchema = new Schema({
 
   studentId: {
@@ -30,6 +32,7 @@ const submissionSchema = new Schema({
 
 model('submission', submissionSchema);
 
+// Schema for Data Validation
 const submissionValidation = {
   body: Joi.object({
     submissionData: Joi.string().required(),

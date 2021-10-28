@@ -1,7 +1,9 @@
+// Importing Node Modules
 const { model } = require('mongoose');
 const { Schema } = require('mongoose');
 const { Joi } = require('express-validation');
 
+// User Schema
 const userSchema = new Schema({
 
   username: {
@@ -29,6 +31,7 @@ const userSchema = new Schema({
 
 model('user', userSchema);
 
+// Schema for Data Validation
 const userValidation = {
   body: Joi.object({
     username: Joi.string().required(),

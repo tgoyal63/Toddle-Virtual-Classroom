@@ -1,7 +1,9 @@
+// Importing Node Modules
 const { model } = require('mongoose');
 const { Schema } = require('mongoose');
 const { Joi } = require('express-validation');
 
+// Assignment Schema
 const assignmentSchema = new Schema({
 
   assignmentname: {
@@ -38,6 +40,7 @@ const assignmentSchema = new Schema({
 
 model('assignment', assignmentSchema);
 
+// Schema for Data Validation
 const assignmentValidation = {
   body: Joi.object({
     assignmentname: Joi.string().required(),

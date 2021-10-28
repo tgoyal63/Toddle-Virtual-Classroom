@@ -1,4 +1,6 @@
 const CommonUtlis = {
+
+  // Generating Response Format
   generateResponse: (statusCode, message, data) => {
     console.log(`msg: ${message}, data: ${data}`);
     return {
@@ -7,6 +9,8 @@ const CommonUtlis = {
       data,
     };
   },
+
+  // Custom Error Format
   customError: (status, msg) => ({
     status,
     msg,

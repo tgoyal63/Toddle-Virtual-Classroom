@@ -54,6 +54,7 @@ module.exports = {
     return response;
   }),
 
+  // Update an submission by custom query in database
   update: serviceBoilerPlate(async (query, data) => {
     const response = await submission.findOneAndUpdate(query, data, { new: true }).exec();
     return response;
@@ -64,6 +65,7 @@ module.exports = {
     await submission.findOneAndDelete({ _id }).exec();
   }),
 
+  // Delete multiple submissions by custom query from database
   deleteMultiple: serviceBoilerPlate(async (query) => {
     await submission.deleteMany(query).exec();
   }),

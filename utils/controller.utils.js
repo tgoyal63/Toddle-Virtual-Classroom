@@ -1,6 +1,7 @@
 const ControllerError = require('../errors/controller.error');
 const ServiceError = require('../errors/service.error');
 
+// Controller Response Format
 const controllerResponse = (statusCode, message, data) => {
   console.log(`msg: ${message}, data: ${data}`);
   return {
@@ -10,6 +11,7 @@ const controllerResponse = (statusCode, message, data) => {
   };
 };
 
+// BoilerPlate Code for Controller
 const controllerBoilerPlate = (wrapped) => (req, res, next) => wrapped(req, res, next)
   .catch((err) => {
     if (err instanceof ControllerError || err instanceof ServiceError) {

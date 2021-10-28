@@ -27,6 +27,7 @@ module.exports = {
     return data;
   }),
 
+  // Searching for Assignments for Multiple Ids in database
   getAssignmentsForStudent: serviceBoilerPlate(async (_ids, filter) => {
     const data = await assignment.find({
       $and: [
