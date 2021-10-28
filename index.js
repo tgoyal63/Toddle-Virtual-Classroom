@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.use('/', userRoutes);
 
 app.use('*', (req, res) => {
-  res.status(404).send('Page Not Found');
+  res.status(404).send('404! Page Not Found. Please check the url again.');
 });
 
 /**
