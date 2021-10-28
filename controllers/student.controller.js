@@ -9,6 +9,12 @@ module.exports = {
     req.body.assignmentId = req.params.assignmentid;
     req.body.submissionTime = new Date();
     const { studentId, assignmentId } = req.body;
+    const submission = await submissionService.searchByMultipleParameters({
+      studentId,
+      assignmentId,
+    });
+    console.log(submission);
+    if (submission[0].submissionData) return controllerResponse(200, 'Only one submission is allowed. Submission Details: ', submission[0]);
     const data = await submissionService.update({ studentId, assignmentId }, req.body);
     return controllerResponse(201, 'Successful', data);
   })),
