@@ -27,7 +27,7 @@ app.use(express.urlencoded({
  * App Routes
  */
 app.get('/', (req, res) => {
-  res.send('Welcome to Virtual Classroom. You can access to our documentation by visiting ...');
+  res.send('Welcome to Virtual Classroom. You can access to our documentation by visiting https://documenter.getpostman.com/view/10110440/UV5deEZQ');
 });
 
 app.use('/', userRoutes);
