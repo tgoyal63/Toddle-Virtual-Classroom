@@ -3,10 +3,10 @@ const ControllerError = require('../errors/controller.error');
 const submissionService = require('../services/submission.service');
 
 module.exports = {
-  submission: ('/submit/:assignmentid', controllerBoilerPlate(async (req) => {
+  submission: ('/submit/:assignmentId', controllerBoilerPlate(async (req) => {
     if (req.user !== 'student') throw new ControllerError(403, 'Access denied! Only students are allowed to submit.');
     req.body.studentId = req.id;
-    req.body.assignmentId = req.params.assignmentid;
+    req.body.assignmentId = req.params.assignmentId;
     req.body.submissionTime = new Date();
     const { studentId, assignmentId } = req.body;
     const submission = await submissionService.searchByMultipleParameters({

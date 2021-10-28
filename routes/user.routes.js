@@ -12,10 +12,10 @@ router.post('/createuser', schemaValidationHandlerMiddleware(userCVSchema), user
 router.post('/login', user.login);
 router.get('/profile', authMiddleware, user.profile);
 router.post('/assignment', schemaValidationHandlerMiddleware(assignmentCVSchema), authMiddleware, tutor.createAssignment);
-router.patch('/assignment/:assignmentid', authMiddleware, tutor.updateAssignment);
-router.delete('/assignment/:assignmentid', authMiddleware, tutor.deleteAssignment);
-router.get('/assignment/:assignmentid', authMiddleware, user.getSubmission);
-router.post('/submit/:assignmentid', schemaValidationHandlerMiddleware(submissionCVSchema), authMiddleware, student.submission);
+router.patch('/assignment/:assignmentId', authMiddleware, tutor.updateAssignment);
+router.delete('/assignment/:assignmentId', authMiddleware, tutor.deleteAssignment);
+router.get('/assignment/:assignmentId', authMiddleware, user.getSubmission);
+router.post('/submit/:assignmentId', schemaValidationHandlerMiddleware(submissionCVSchema), authMiddleware, student.submission);
 router.post('/assignmentfeed', authMiddleware, user.getAssignments);
 // filters: publishedAt[SCHEDULED, ONGOING],
 // status(student only): [ALL, PENDING, OVERDUE, SUBMITTED]

@@ -63,4 +63,8 @@ module.exports = {
   deleteById: serviceBoilerPlate(async (_id) => {
     await submission.findOneAndDelete({ _id }).exec();
   }),
+
+  deleteMultiple: serviceBoilerPlate(async (query) => {
+    await submission.deleteMany(query).exec();
+  }),
 };

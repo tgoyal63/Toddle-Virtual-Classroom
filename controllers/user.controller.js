@@ -38,15 +38,16 @@ module.exports = {
     }
   })),
 
-  getSubmission: ('/assignment/:assignmentid', controllerBoilerPlate(async (req) => {
+  getSubmission: ('/assignment/:assignmentId', controllerBoilerPlate(async (req) => {
+    const { assignmentId } = req.params;
     if (req.user === 'student') {
       const data = await submissionService.searchByMultipleParameters({
         studentId: req.id,
-        assignmentId: req.params.assignmentid,
+        assignmentId,
       });
       return controllerResponse(200, 'Successful', data);
     } if (req.user === 'tutor') {
-      const data = await submissionService.searchByEntity('assignmentId', req.params.assignmentid);
+      const data = await submissionService.searchByEntity('assignmentId', assignmentId);
       return controllerResponse(200, 'Successful', data);
     }
     throw new ControllerError(403, 'Invalid User!');

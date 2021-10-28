@@ -18,15 +18,17 @@ module.exports = {
     return controllerResponse(201, 'Successful', data);
   })),
 
-  updateAssignment: ('/assignment/:assignmentid', controllerBoilerPlate(async (req) => {
+  updateAssignment: ('/assignment/:assignmentId', controllerBoilerPlate(async (req) => {
     if (req.user !== 'tutor') throw new ControllerError(403, 'Access denied! Only tutors are allowed.');
     await assignmentService.updateById(req.params.assignmentid, req.body);
     return controllerResponse(204, 'Successful');
   })),
 
-  deleteAssignment: ('/assignment/:assignmentid', controllerBoilerPlate(async (req) => {
+  deleteAssignment: ('/assignment/:assignmentId', controllerBoilerPlate(async (req) => {
+    const {assignmentId} = req.params;
     if (req.user !== 'tutor') throw new ControllerError(403, 'Access denied! Only tutors are allowed.');
-    await assignmentService.deleteById(req.params.assignmentid);
+    await assignmentService.deleteById(assignmentId);
+    await submissionService.deleteMultiple({assignmentId});
     return controllerResponse(204, 'Successful');
   })),
 };
