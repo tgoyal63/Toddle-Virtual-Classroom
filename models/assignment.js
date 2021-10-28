@@ -42,7 +42,7 @@ const assignmentValidation = {
   body: Joi.object({
     assignmentname: Joi.string().required(),
     description: Joi.string().required(),
-    students: Joi.array().items(Joi.string()).required(),
+    students: Joi.array().items(Joi.string()).required().unique(),
     publishedAt: Joi.string().required(),
     deadlineDate: Joi.string().required(),
   }),
