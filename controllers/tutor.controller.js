@@ -4,6 +4,7 @@ const ControllerError = require('../errors/controller.error');
 const assignmentService = require('../services/assignment.service');
 const submissionService = require('../services/submission.service');
 const userService = require('../services/user.service');
+const { pushMail } = require('../utils/mail.utils');
 
 module.exports = {
 
@@ -16,8 +17,10 @@ module.exports = {
 
     // Checking if the list of students provided are registered
     const unregisteredStudents = [];
+    const studentEmails = [];
     await Promise.all(students.map(async (studentId) => {
       const student = await userService.searchByEntity('_id', studentId);
+      studentEmails.push(student.email);
       if (!student) unregisteredStudents.push(studentId);
     }));
     if (unregisteredStudents.length > 0) throw new ControllerError(404, 'Following Students are not found in the database.', unregisteredStudents);
@@ -27,6 +30,13 @@ module.exports = {
 
     // Creating submission slots for the students in the database
     await Promise.all(students.map(async (studentId) => {
+      const to = studentEmails.join(', ');
+      const subject = `New Assignment - ${req.body.assignmentname}`;
+      const text = `New Assignment - ${req.body.assignmentname} is scheduled on ${req.body.publishedAt}.`;
+      const html = `<b>New Assignment</b> - <i>${req.body.assignmentname}</i> is scheduled on <i>${req.body.publishedAt}</i>.`;
+      await pushMail({
+        to, subject, text, html,
+      });
       const submissionData = {
         studentId,
         assignmentId: data._id,
