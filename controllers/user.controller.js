@@ -39,6 +39,11 @@ module.exports = {
 
   // Logging in User (Student and Tutor)
   login: ('/login', controllerBoilerPlate(async (req) => {
+    // Checking the required fields provided or not
+    if (!req.body) throw new ControllerError(404, 'username and password is required!');
+    if (!req.body.username) throw new ControllerError(404, 'username is required!');
+    if (!req.body.password) throw new ControllerError(404, 'password is required!');
+
     // Checking if the user exists in the database
     const data = await userService.searchByEntity('username', req.body.username);
     if (!data) {

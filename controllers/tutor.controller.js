@@ -11,7 +11,6 @@ module.exports = {
   createAssignment: ('/assignment', controllerBoilerPlate(async (req) => {
     // Checking if the user has the role 'tutor'
     if (req.user !== 'tutor') throw new ControllerError(403, 'Access denied! Only tutors are allowed.');
-
     const { students } = req.body;
     req.body.tutorId = req.id;
 
@@ -45,6 +44,9 @@ module.exports = {
     // Checking if the user has the role 'tutor'
     if (req.user !== 'tutor') throw new ControllerError(403, 'Access denied! Only tutors are allowed.');
 
+    // Checking if the user sent data in body
+    if (!req.body) throw new ControllerError(404, 'Please include the data in the request body, that needs to be updated.');
+
     // Updating and checking if the assignment exists
     const data = await assignmentService.updateById(req.params.assignmentId, req.body);
     if (!data) throw new ControllerError(404, 'Assignment not found!');
@@ -74,7 +76,10 @@ module.exports = {
     const keys = Object.keys(req.body);
     if (Object.hasOwnProperty.call(req.body, '_id', 'submissionData', 'submissionTime', 'createdAt', 'updatedAt') || keys.length > 2) throw new ControllerError(403, 'Only studentId and remarks are allowed.');
 
-    if (!req.body.studentId || !req.body.remarks) throw new ControllerError(400, 'studentId and remarks are required.');
+    // Checking if required fields provided in the body or not
+    if (!req.body.studentId) throw new ControllerError(400, 'studentId is required.');
+    if (!req.body.remarks) throw new ControllerError(400, 'remarks is required.');
+
     const { studentId, remarks } = req.body;
     const { assignmentId } = req.params;
 
