@@ -27,6 +27,11 @@ const userSchema = new Schema({
     required: [true, 'Role is required'],
   },
 
+  email: {
+    type: String,
+    required: [true, 'Email is required'],
+  },
+
 }, { timestamps: true });
 
 model('user', userSchema);
@@ -37,6 +42,7 @@ const userValidation = {
     username: Joi.string().required(),
     password: Joi.string().required(),
     role: Joi.string().required(),
+    email: Joi.string().email().required(),
   }),
 };
 model('userValidation', userValidation);
